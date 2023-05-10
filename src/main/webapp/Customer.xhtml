@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+    <h:form>
+        <title>Work with Customers</title>
+    </h:form>
+    <h:dataTable value="#{customerController.allCustomers()}" var="emp" border="1">
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Id"/>
+            </f:facet>
+            <h:outputText value="#{emp.customerId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{emp.name}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Zip Code"/>
+            </f:facet>
+            <h:outputText value="#{emp.zipCode}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Country"/>
+            </f:facet>
+            <h:outputText value="#{emp.country}"/>
+        </h:column>
+    </h:dataTable>
+    <br/>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Delete by Id: "/>
+            <h:inputText value="#{customerController.id}"/>
+        </h:panelGrid>
+        <h:commandButton value="Delete Customer"
+                         action="#{customerController.deleteCustomer()}"/>
+    </h:form>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Id: "/>
+            <h:inputText value="#{customerController.customer.id}"/>
+            <h:outputLabel value="Name: "/>
+            <h:inputText validatorMessage="Your name can have only Alphabets" value="#{customerController.customer.name}">
+                <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" />
+                <f:validateRequired />
+            </h:inputText>
+            <h:outputLabel value="Zip Code: "/>
+            <h:inputText value="#{customerController.customer.zipCode}"/>
+            <h:outputLabel value="Country: "/>
+            <h:inputText validatorMessage="Country can have only Alphabets" value="#{customerController.customer.country}">
+                <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" />
+                <f:validateRequired />
+            </h:inputText>
+        </h:panelGrid>
+        <br/>
+        <h:commandButton value="Add"
+                         action="#{customerController.addCustomer()}"/>
+        <h:commandButton value="Update"
+                         action="#{customerController.updateCustomer()}"/>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Search by Id: " style="width: 50px"/>
+            <h:inputText value="#{customerController.id}" style="width: 70px"/>
+            <h:commandButton value="Search Customer"  action="#{customerController.searchCustomer()}"/>
+        </h:panelGrid>
+        <br/>
+            <h:outputLabel value="Id: #{customerController.customerSearch.id}"/><br/>
+            <h:outputLabel value="Name: #{customerController.customerSearch.name}"/><br/>
+            <h:outputLabel value="Zip Code: #{customerController.customerSearch.zipCode}"/><br/>
+            <h:outputLabel value="Country: #{customerController.customerSearch.country}"/>
+    </h:form>
+</h:body>
+</html>

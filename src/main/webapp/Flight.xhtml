@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+  <h:form>
+    <title>Work with Flights</title>
+  </h:form>
+  <h:dataTable value="#{flightController.allFlights()}" var="emp" border="1">
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="Id"/>
+      </f:facet>
+      <h:outputText value="#{emp.flightId}"/>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="Departure"/>
+      </f:facet>
+      <h:outputText value="#{emp.departure}"/>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="Arrival"/>
+      </f:facet>
+      <h:outputText value="#{emp.arrival}"/>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="Company"/>
+      </f:facet>
+      <h:outputText value="#{emp.company}"/>
+    </h:column>
+  </h:dataTable>
+  <h:form>
+    <h:panelGrid columns="2">
+      <h:outputLabel value="Id: "/>
+      <h:inputText value="#{flightController.flight.id}"/>
+      <h:outputLabel value="Departure: "/>
+      <h:inputText validatorMessage="Country can have only Alphabets"
+                   value="#{flightController.flight.departure}">
+        <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" />
+        <f:validateRequired />
+      </h:inputText>
+      <h:outputLabel value="Arrival: "/>
+      <h:inputText validatorMessage="Country can have only Alphabets"
+                   value="#{flightController.flight.arrival}">
+        <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" />
+        <f:validateRequired />
+      </h:inputText>
+      <h:outputLabel value="Company: "/>
+      <h:selectOneMenu value="#{flightController.flight.company}">
+        <f:selectItem itemValue="Belavia" itemLabel="Belavia"></f:selectItem>
+        <f:selectItem itemValue="Aeroflot" itemLabel="Aeroflot"></f:selectItem>
+        <f:selectItem itemValue="S7" itemLabel="S7"></f:selectItem>
+        <f:selectItem itemValue="Turkish Airlines" itemLabel="Turkish Airlines"></f:selectItem>
+      </h:selectOneMenu>
+    </h:panelGrid>
+    <h:commandButton value="Add New Flight"
+                     action="#{flightController.addFlight()}"/>
+    <h:commandButton value="Update Flight"
+                     action="#{flightController.updateFlight()}"/>
+  </h:form>
+  <h:form>
+    <h:panelGrid columns="2">
+      <h:outputLabel value="Search by Id: " style="width: 50px"/>
+      <h:inputText value="#{flightController.flightSearch.id}" style="width: 70px"/>
+      <h:commandButton value="Search"  action="#{flightController.searchFlight()}"/>
+    </h:panelGrid><br/>
+    <h:outputLabel value="Id: #{flightController.flightSearch.id}"/><br/>
+    <h:outputLabel value="Departure: #{flightController.flightSearch.departure}"/><br/>
+    <h:outputLabel value="Arrival: #{flightController.flightSearch.arrival}"/><br/>
+    <h:outputLabel value="Company: #{flightController.flightSearch.company}"/>
+  </h:form>
+</h:body>
+</html>
